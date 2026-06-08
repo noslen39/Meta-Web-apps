@@ -1,0 +1,191 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 600px;
+  height: 600px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.14), transparent 28%),
+    radial-gradient(circle at bottom, rgba(255, 0, 0, 0.18), transparent 32%),
+    #050505;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.screen {
+  width: 600px;
+  height: 600px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  animation: screenGlow 4s ease-in-out infinite;
+}
+
+header {
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 18px;
+  opacity: 0.65;
+}
+
+h1 {
+  margin: 4px 0 6px;
+  font-size: 42px;
+  line-height: 1;
+  text-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+}
+
+#status {
+  margin: 0;
+  font-size: 24px;
+  min-height: 32px;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
+}
+
+.board {
+  width: 390px;
+  height: 390px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding: 12px;
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow:
+    0 0 24px rgba(255, 255, 255, 0.18),
+    inset 0 0 20px rgba(255, 255, 255, 0.08);
+}
+
+.cell {
+  width: 114px;
+  height: 114px;
+  border: 4px solid white;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.02);
+  color: white;
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 0 0 18px currentColor;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.cell.x-mark,
+.cell.o-mark {
+  color: red;
+  animation: markPop 220ms ease-out;
+}
+
+.cell.selected,
+.cell:focus {
+  outline: none;
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 0 18px rgba(255, 255, 255, 0.75),
+    inset 0 0 14px rgba(255, 255, 255, 0.22);
+}
+
+.cell.win {
+  border-width: 7px;
+  animation: winPulse 700ms ease-in-out infinite;
+}
+
+footer {
+  text-align: center;
+}
+
+.reset {
+  border: 3px solid white;
+  border-radius: 16px;
+  background: transparent;
+  color: white;
+  font-size: 24px;
+  padding: 12px 24px;
+  transition:
+    transform 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.reset.selected,
+.reset:focus {
+  outline: none;
+  transform: scale(1.05);
+  background: white;
+  color: black;
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.7);
+}
+
+.hint {
+  margin: 10px 0 0;
+  font-size: 18px;
+  opacity: 0.6;
+}
+
+@keyframes markPop {
+  0% {
+    transform: scale(0.4) rotate(-10deg);
+    opacity: 0;
+  }
+
+  70% {
+    transform: scale(1.18) rotate(4deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes winPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 18px rgba(255, 0, 0, 0.65),
+      inset 0 0 14px rgba(255, 0, 0, 0.25);
+  }
+
+  50% {
+    transform: scale(1.1);
+    box-shadow:
+      0 0 32px rgba(255, 0, 0, 0.95),
+      inset 0 0 22px rgba(255, 0, 0, 0.4);
+  }
+}
+
+@keyframes screenGlow {
+  0%, 100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen,
+  .cell,
+  .cell.x-mark,
+  .cell.o-mark,
+  .cell.win {
+    animation: none;
+    transition: none;
+  }
+}
